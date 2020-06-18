@@ -57,7 +57,7 @@ Varied based on experiment, performance graphs below. (Due to stochastic nature 
 
 The frame skip was set at 12, which while not a problem while strafing, caused the agent to overshoot and overcorrect, oftentimes repeatedly. This caused suboptimal behavior. This could be rectified by using a smaller frame skip, but was not nessecary.
 
-[![](https://gifs.com/gif/turn-71m8Yy)](http://www.youtube.com/watch?v=gEkVpXXfXHs "Turning Demo")
+[![](https://j.gifs.com/71m8Yy.gif)](http://www.youtube.com/watch?v=gEkVpXXfXHs "Turning Demo")
 
 
 <discount_factor>
@@ -81,7 +81,7 @@ Using the same stock Q-learning, the next scenario has a variety of enemies that
 Varied based on experiment, performance graphs below. 
 
 
-[![](https://gifs.com/gif/dtl-move-1WO1EV)](https://youtu.be/a2CmaojANks "Defend the Line Stock")
+[![](https://j.gifs.com/1WO1EV.gif)](https://youtu.be/a2CmaojANks "Defend the Line Stock")
 
 <discount_factor>
 <learning_rate>
@@ -91,7 +91,7 @@ Varied based on experiment, performance graphs below.
 
 To address the problems caused by moving enemies wandering into the agent's blind firing path, I removed their ability to move. This forced the agent to learn that it needed to turn, but did not teach anything that looked like accuracy. The 12 frame skip continued to limit performance. 
 
-[![](https://gifs.com/gif/vizdoom-defend-the-line-stationary-gZOY8G)](http://www.youtube.com/watch?v=U51vwBFBj2s "Defend the Line Stationary")
+[![](https://j.gifs.com/gZOY8G.gif)](http://www.youtube.com/watch?v=U51vwBFBj2s "Defend the Line Stationary")
 
 
 Additionally, the unlimited ammo and lack of penalty for missing continued to encourage blind fire. 
@@ -101,8 +101,8 @@ Additionally, the unlimited ammo and lack of penalty for missing continued to en
 
 Below is a demonstration of basic generalization back to the original problem with moving enemies, using the model trained on stationary enemies. 
 
-[![](https://gifs.com/gif/dtlmoving-k8kQBN)](http://www.youtube.com/watch?v=dV5MpiGMj8c "Defend the Line Generalized")
+[![](https://j.gifs.com/k8kQBN.gif)](http://www.youtube.com/watch?v=dV5MpiGMj8c "Defend the Line Generalized")
 
 Finally, we can also watch the performance of the generalized agent in an environment it has never seen before, Defend the Center.
 
-[![](https://gifs.com/gif/dtc-p8pwBp)](http://www.youtube.com/watch?v=D5Lgoez-4ok "Defend the Center Generalized")
+[![](https://j.gifs.com/p8pwBp.gif)](http://www.youtube.com/watch?v=D5Lgoez-4ok "Defend the Center Generalized")
