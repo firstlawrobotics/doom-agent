@@ -58,12 +58,12 @@ Varied based on experiment, performance graphs below. (Due to stochastic nature 
 
 The frame skip was set at 12, which while not a problem while strafing, caused the agent to overshoot and overcorrect, oftentimes repeatedly. This caused suboptimal behavior. This could be rectified by using a smaller frame skip, but was not nessecary.
 
+### Learning Rate
+![Learning Rate](https://raw.githubusercontent.com/firstlawrobotics/doom-agent/master/stock/Save/bt/basic_turn.cfg%20Learning%20Rate%20Test_line.png)
 
 ### Discount Factor
 ![Discount Factor](https://raw.githubusercontent.com/firstlawrobotics/doom-agent/master/stock/Save/bt/basic_turn.cfg%20Discount%20Factor%20Test_line.png)
 
-### Learning Rate
-![Learning Rate](https://raw.githubusercontent.com/firstlawrobotics/doom-agent/master/stock/Save/bt/basic_turn.cfg%20Learning%20Rate%20Test_line.png)
 
 # Defend_the_line.wad - Stock Q-Learning
 
@@ -82,10 +82,11 @@ Using the same stock Q-learning, the next scenario has a variety of enemies that
 ### Hyper-Parameters: 
 Varied based on experiment, performance graphs below. 
 
-###
+### Learning Rate
+![Learning Rate](https://raw.githubusercontent.com/firstlawrobotics/doom-agent/master/stock/Save/dtl_stock/defend_the_line.cfg%20Learning%20Rate%20Test_line.png)
 
-<discount_factor>
-<learning_rate>
+### Discount Factor
+![Discount Factor](https://raw.githubusercontent.com/firstlawrobotics/doom-agent/master/stock/Save/dtl_stock/defend_the_line.cfg%20Discount%20Factor%20Test_line.png)
 
 
 # Defend_the_line.wad - Stock Q-Learning, No Moving Enemies
@@ -96,8 +97,12 @@ To address the problems caused by moving enemies wandering into the agent's blin
 
 Additionally, the unlimited ammo and lack of penalty for missing continued to encourage blind fire. 
 
-<discount_factor>
-<learning_rate>
+
+### Learning Rate
+![Learning Rate](https://raw.githubusercontent.com/firstlawrobotics/doom-agent/master/stock/Save/dtl_sta/defend_the_line.cfg%20Learning%20Rate%20Test_line.png)
+
+### Discount Factor
+![Discount Factor](https://raw.githubusercontent.com/firstlawrobotics/doom-agent/master/stock/Save/dtl_sta/defend_the_line.cfg%20Discount%20Factor%20Test_line.png)
 
 Below is a demonstration of basic generalization back to the original problem with moving enemies, using the model trained on stationary enemies. 
 
