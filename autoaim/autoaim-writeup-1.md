@@ -7,8 +7,6 @@ This provides clear examples of successful reward sequences to the agent. Notabl
 
 ### Defend_the_line
 
-< video of random at 0>
-
 Training Scores:
 
 With Aimbot
