@@ -32,7 +32,7 @@ Using the stock Q-learning example (Pytorch implementation) with all standard pa
 * Other parameters
     * frame_repeat = 12
 
-[![](http://img.youtube.com/vi/m-DYZ1N2oO8/0.jpg)](http://www.youtube.com/watch?v=m-DYZ1N2oO8 "Strafing Demo")
+[![](https://j.gifs.com/L7O6nX.gif)](http://www.youtube.com/watch?v=m-DYZ1N2oO8 "Strafing Demo")
 
 <test line graph > 
 
@@ -94,8 +94,6 @@ Varied based on experiment, performance graphs below.
 To address the problems caused by moving enemies wandering into the agent's blind firing path, I removed their ability to move. This forced the agent to learn that it needed to turn, but did not teach anything that looked like accuracy. The 12 frame skip continued to limit performance. 
 
 [![](http://img.youtube.com/vi/U51vwBFBj2s/0.jpg)](http://www.youtube.com/watch?v=U51vwBFBj2s "Defend the Line Stationary")
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/U51vwBFBj2s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 Additionally, the unlimited ammo and lack of penalty for missing continued to encourage blind fire. 
