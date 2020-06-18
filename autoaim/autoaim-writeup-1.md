@@ -19,6 +19,12 @@ Using the model trained with Aimbot, but with Aimbot not enabled. All actions ta
 
 [![Watch the video](https://j.gifs.com/3QgRrx.gif)](https://youtu.be/vt5fpE0bzSY)
 
+The performance of the trained agent when not using the aimbot far surpasses that of the agent using the aimbot, as it is able to learn how to aim properly and improve on the aimbot's ability, while the aimbot is stuck in its initial programming. A performance gain can be had by removing the aimbot from the learning process after n number of epochs, allowing more efficient learning. 
+
+![](https://raw.githubusercontent.com/firstlawrobotics/doom-agent/master/autoaim/Save/20200612-212020/20200612-212020_Test_line.png)
+
+ 
+
 # Explanation
 
 This is notable for a variety of reasons. First, this is the first time we are seeing above human level performance for the network with no imputs outside of the screen buffer. 
