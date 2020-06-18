@@ -95,6 +95,9 @@ To address the problems caused by moving enemies wandering into the agent's blin
 
 [![](http://img.youtube.com/vi/U51vwBFBj2s/0.jpg)](http://www.youtube.com/watch?v=U51vwBFBj2s "Defend the Line Stationary")
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/U51vwBFBj2s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
 Additionally, the unlimited ammo and lack of penalty for missing continued to encourage blind fire. 
 
 <discount_factor>
