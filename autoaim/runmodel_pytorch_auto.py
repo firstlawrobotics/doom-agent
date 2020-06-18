@@ -22,7 +22,7 @@ from tqdm import trange
 import time as gimmetime
 import os
 import sys
-from graph import *
+#from ../utilities/graph import *
 import cv2
 sleep_time = 28
 
@@ -443,5 +443,4 @@ if __name__ == '__main__':
         score = game.get_total_reward()
         print("Total score: ", score)
 
-    #plotGrowth(timestr, 0)
-    #plotGrowth(timestr, 1)
+

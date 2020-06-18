@@ -22,11 +22,7 @@ from tqdm import trange
 import time as gimmetime
 import os
 import sys
-#from ../utilities/graph import *
-import cv2
-from skimage import color
-from skimage import io
-import math
+from ../utilities/graph import *
 
 # Q-learning settings
 learning_rate = float(sys.argv[2]) #0.00025
@@ -39,11 +35,10 @@ replay_memory_size = 10000
 batch_size = int(sys.argv[4])#64
 
 # Training regime
-test_episodes_per_epoch = 20 #100
+test_episodes_per_epoch = 100 #100
 
 # Other parameters
-frame_repeat = 2
-resolution = (30, 45, 3)
+frame_repeat = 12
 resolution = (30, 45)
 episodes_to_watch = 10
 
@@ -103,35 +98,6 @@ with open(config_file_path) as conf:
     f.writelines(lines)
 
 
-
-
-# Sleep time between actions in ms
-sleep_time = 28
-
-
-# Prepare some colors and drawing function
-# Colors in in BGR order
-doom_red_color = [0, 0, 203]
-doom_blue_color = [203, 0, 0]
-
-def draw_bounding_box(buffer, x, y, width, height, color):
-    for i in range(width):
-        buffer[y, x + i, :] = color
-        buffer[y + height, x + i, :] = color
-
-    for i in range(height):
-        buffer[y + i, x, :] = color
-        buffer[y + i, x + width, :] = color
-
-def color_labels(labels):
-    """
-    Walls are blue, floor/ceiling are red (OpenCV uses BGR).
-    """
-    tmp = np.stack([labels] * 3, -1)
-    tmp[labels == 0] = [255, 0, 0]
-    tmp[labels == 1] = [0, 0, 255]
-
-    return tmp
 # Converts and down-samples the input image
 def preprocess(img):
     img = skimage.transform.resize(img, resolution)
@@ -227,61 +193,6 @@ def learn_from_memory():
         target_q[np.arange(target_q.shape[0]), a] = r + discount_factor * (1 - isterminal) * q2
         learn(s1, target_q)
 
-def autoAim(lx):
-    #[[0, 0, 0], [0, 0, 1], [0, 1, 0], [1, 0, 0]]
-
-    #print(lx)
-    #if lx < 310 and lx > 270: 
-    #    a = 6
-    #elif lx > 330 and lx < 370: 
-    #    a = 3 
-
-    if lx < 300:
-        a = 3
-    #elif lx == 276:
-    #    a = 3      
-    elif lx > 340:
-        a = 2
-    else:
-        a = 1
-    #print(lx,a)
-    return a
-
-def autoAim2(lx):
-    #[[0, 0, 0], [0, 0, 1], [0, 1, 0], [0, 1, 1], [1, 0, 0], [1, 0, 1], [1, 1, 0]]
-    #print(lx)
-    if lx < 310 and lx > 270: 
-        a = 6
-    elif lx > 330 and lx < 370: 
-        a = 3 
-    if lx > 350:
-        a = 2
-    elif lx == 276:
-        a = 3      
-    elif lx < 290:
-        a = 4
-    else:
-        a = 1
-    #print(a)
-    return a
-
-def autoAimWalk(lx):
-    if lx < 305 and lx > 270: 
-        a = 4
-    elif lx > 335 and lx < 370: 
-        a = 5 
-    if lx > 350:
-        a = 2
-    elif lx == 276:
-        a = 5      
-    elif lx < 290:
-        a = 1
-    else:
-        a = 3
-    return a
-
-
-
 
 def perform_learning_step(epoch):
     """ Makes an action according to eps-greedy policy, observes the result
@@ -303,90 +214,25 @@ def perform_learning_step(epoch):
         else:
             return end_eps
 
-
-
-    # Gets the state
-    state = game.get_state()
-
-    # Labels buffer, always in 8-bit gray channel format.
-    # Shows only visible game objects (enemies, pickups, exploding barrels etc.), each with unique label.
-    # Labels data are available in state.labels.
-
-    labels = state.labels_buffer
-    #if labels is not None:
-    #    cv2.imshow('ViZDoom Labels Buffer', color_labels(labels))
-    lxArray = []
-    lx = False
-    # Screen buffer, given in selected format. This buffer is always available.
-    # Using information from state.labels draw bounding boxes.
-    screen = state.screen_buffer
-
-    for l in state.labels:
-
-
-        if l.object_name in ["Cacodemon", "DoomImp", "Zombieman","shotgunGuy","MarineChainsawVzd","ChaingunGuy", "Demon","HellKnight"]:
-            #print(l.object_name)
-            lx = l.x+.5*l.width
-            ly = l.y
-            #print(lx)
-            lxArray.append(lx)
-        elif l.object_name in ["Medkit", "GreenArmor"]:
-            #draw_bounding_box(screen, l.x, l.y, l.width, l.height, doom_blue_color)
-            continue
-        else:
-            continue
-            
-
-
-    if lxArray != []:
-        lx = min(lxArray, key=lambda x:abs(x-320))
-        
-
-    #screen = color.rgb2gray(screen)
-    #print(lx,320)
-    #cv2.imshow('ViZDoom Screen Buffer', screen)
-    
-
-    cv2.waitKey(sleep_time)
-    s1 = preprocess(screen)
-
-        
-    #degrees = math.atan2(lx, 320)#*57.2958 #https://en.wikipedia.org/wiki/Atan2 in Radians
+    s1 = preprocess(game.get_state().screen_buffer)
 
     # With probability eps make a random action.
     eps = exploration_rate(epoch)
-    if lx and epoch < 10:
-        #if lx < 320:
-        #    degrees = degrees * -1      
-        a = autoAim(lx)
-        #print(a)
-    elif random() <= eps:
+    if random() <= eps:
         a = randint(0, len(actions) - 1)
-        if a == 1 and epoch < 10:
-            a = 2
     else:
-        #Choose the best action according to the network.
-
+        # Choose the best action according to the network.
         s1 = s1.reshape([1, 1, resolution[0], resolution[1]])
         a = get_best_action(s1)
-    
     reward = game.make_action(actions[a], frame_repeat)
-    #print(reward)
 
     isterminal = game.is_episode_finished()
     s2 = preprocess(game.get_state().screen_buffer) if not isterminal else None
-    if not isterminal:
-        s2 = preprocess(game.get_state().screen_buffer) 
-        #s2 = color.rgb2gray(s2)
-    else:
-        s2 = None
 
     # Remember the transition that was just experienced.
     memory.add_transition(s1, a, s2, isterminal, reward)
 
     learn_from_memory()
-   
-
 
 
 # Creates and initializes ViZDoom environment.
@@ -396,29 +242,14 @@ def initialize_vizdoom(config_file_path):
     game.load_config(config_file_path)
     game.set_window_visible(False)
     game.set_mode(Mode.PLAYER)
+
     game.set_screen_format(ScreenFormat.GRAY8)
     game.set_screen_resolution(ScreenResolution.RES_640X480)
     game.set_labels_buffer_enabled(True)
-    game.clear_available_game_variables()
-
     game.init()
     print("Doom initialized.")
     return game
 
-def initialize_vizdoom_test(config_file_path):
-    print("Initializing doom...")
-    game = DoomGame()
-    game.load_config(config_file_path)
-    game.set_window_visible(True)
-    game.set_mode(Mode.PLAYER)
-    game.set_screen_format(ScreenFormat.GRAY8)
-    game.set_screen_resolution(ScreenResolution.RES_640X480)
-    #game.set_labels_buffer_enabled(True)
-    game.clear_available_game_variables()
-
-    game.init()
-    print("Doom initialized.")
-    return game
 
 if __name__ == '__main__':
     # Create Doom instance
@@ -427,20 +258,7 @@ if __name__ == '__main__':
 
     # Action = which buttons are pressed
     n = game.get_available_buttons_size()
-    n = game.get_available_buttons_size()
-    newActions = []    
     actions = [list(a) for a in it.product([0, 1], repeat=n)]
-    for i in actions:
-
-        if sum(i) <= 1:
-            newActions.append(i)
-        #elif i[0] == 1 and sum(i) <=2:
-        #    newActions.append(i)
-        #elif i[1] == 1 and sum(i) <=2:
-        #    newActions.append(i)        
-    actions = newActions
-    print(actions)
-
 
     # Create replay memory which will store the transitions
     memory = ReplayMemory(capacity=replay_memory_size)
@@ -457,11 +275,14 @@ if __name__ == '__main__':
     time_start = time()
     if not skip_learning:
         for epoch in range(epochs):
+            
             print("\nEpoch %d\n-------" % (epoch + 1))
+            if epoch%10 == 0:
+                model_savefile = "./"+timestr+"/epoch"+str(epoch)+"_model.pth" 
             #f.write("Epoch:%d\n" %epoch)
             train_episodes_finished = 0
             train_scores = []
-            game = initialize_vizdoom(config_file_path)
+
             print("Training...")
             game.new_episode()
             for learning_step in trange(learning_steps_per_epoch, leave=False):
@@ -485,23 +306,13 @@ if __name__ == '__main__':
             print("\nTesting...")
             test_episode = []
             test_scores = []
-            game = initialize_vizdoom_test(config_file_path)
             for test_episode in trange(test_episodes_per_epoch, leave=False):
                 game.new_episode()
                 while not game.is_episode_finished():
-                    state = game.get_state()
-                    # Labels buffer, always in 8-bit gray channel format.
-                    # Shows only visible game objects (enemies, pickups, exploding barrels etc.), each with unique label.
-                    # Labels data are available in state.labels.
-                    #labels = state.labels_buffer
-                    # Screen buffer, given in selected format. This buffer is always available.
-                    # Using information from state.labels draw bounding boxes.
-                    screen = state.screen_buffer
-
-                    state = preprocess(screen)
-
+                    state = preprocess(game.get_state().screen_buffer)
 
                     state = state.reshape([1, 1, resolution[0], resolution[1]])
+
                     best_action_index = get_best_action(state)
 
                     game.make_action(actions[best_action_index], frame_repeat)
@@ -550,5 +361,5 @@ if __name__ == '__main__':
         score = game.get_total_reward()
         print("Total score: ", score)
 
-    #plotGrowth(timestr, 0)
-    #plotGrowth(timestr, 1)
+    plotGrowth(timestr, 0)
+    plotGrowth(timestr, 1)
