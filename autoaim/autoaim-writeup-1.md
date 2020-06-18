@@ -5,24 +5,32 @@ While the results showed some improvements, I felt that my intentionally limited
 
 This provides clear examples of successful reward sequences to the agent. Notably, this aimbot only controls behavior when there is an enemy in view. When there are no enemies in view, the action taken is chosen by standard Q-learning. This allows the agent to learn how to behave when there are no enemies on screen, which results in significant increases in performance.
 
-### Defend_the_line
+# Defend the Line- Aimbot
 
-Training Scores:
+## Aimbot On
 
-With Aimbot
+Using the trained agent, with Aimbot enabled for when target is visible.
 
-< video of train at 25>
+[![Watch the video](https://j.gifs.com/XLvxXA.gif)](https://youtu.be/YvPv2kiyKRY)
 
-Testing Scores: 
+## Aimbot Off
 
-Using the model trained with Aimbot, but Aimbot not enabled. 
-< video of test at 25>
+Using the model trained with Aimbot, but with Aimbot not enabled. All actions taken are learned by the neural network using only imputs from the screen buffer.
+
+[![Watch the video](https://j.gifs.com/3QgRrx.gif)](https://youtu.be/vt5fpE0bzSY)
+
+# Explanation
 
 This is notable for a variety of reasons. First, this is the first time we are seeing above human level performance for the network with no imputs outside of the screen buffer. 
 
-Second, and perhaps more importantly, we show that an aimbot allows extremely high performance for a naive model. Future improvements of the model show clear superhuman performance, as expected. Any real world implementation of a FPS playing agent will require some form of object detection/classifier to identify potential targets. The nets that provide these classifiers will provide bounding boxes that can should be used for aiming. It is not the best use of neural nets to work on solved problems such as aiming and ballistic trajectory, instead they should be focused on learning target prioritization, leading targets, and post-impact corrections. 
+Second, and perhaps more importantly, we show that an aimbot allows extremely high performance for a naive model. Future improvements of the model show clear superhuman performance, as expected. Any real world implementation of a FPS playing agent will require some form of object detection/classifier to identify potential targets. The nets that provide these classifiers will provide bounding boxes that can and should be used for aiming. 
+
+It is not the best use of neural nets to work on solved problems such as aiming and ballistic trajectory, instead they should be focused on learning target prioritization, leading targets, and post-impact corrections. 
 
 Despite this significant increase in performance, the agent has failed to learn ammunition conservation. Further work needs to be done with this before any further progress should be attempted. 
+
+* [Ammo Conservation](../ammo_conservation/ammo-writeup-1.md)
+  * Reward Shaping to Influence Agent to Conserve Ammo
 
 
 
