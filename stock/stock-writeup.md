@@ -1,10 +1,10 @@
 # Description
 
-In this writeup we do over the fundamnentals of training a FPS playing agent on the basic scenarios in the ViZDoom Reinforcement Learning platform. A standard Q-Learning algorithm is used. 
+In this writeup we do over the fundamnentals of training a FPS playing agent on the basic scenarios in the ViZDoom Reinforcement Learning platform. A standard [Q-Learning algorithm](https://en.wikipedia.org/wiki/Q-learning) is used. 
 
 # Notes
 
-Doom's high framerate allows incredible amounts of training, but other environments such as more advanced games or the real world do not provide the ability to iterate at the same speed. It is worthwhile working within these experiental constraints to allow better understanding of what is occuring in the model. All work done in this writeup was conducted with two CPUs in under two hours each run. 
+Doom's high framerate allows rapid training, but other environments such as more advanced games or the real world do not provide the ability to iterate at the same speed. It is worthwhile working within these experiental constraints to allow better understanding of what is occuring in the model. All work done in this writeup was conducted with two CPUs in under two hours each run. 
 
 
 # Basic.wad - Stock Q-Learning
@@ -39,7 +39,7 @@ Using the stock Q-learning example (Pytorch implementation) with all standard pa
 
 # Basic_turn.wad - Stock Q-Learning
 
-While strafing is intelligent behavior, we are better off turning and firing at enemies. Replacing walking with turning gives us a much more natural looking result.
+While strafing is intelligent behavior, replacing walking with turning gives us a much more natural looking result.
 
 [![](https://j.gifs.com/71m8Yy.gif)](http://www.youtube.com/watch?v=gEkVpXXfXHs "Turning Demo")
 
@@ -59,10 +59,11 @@ Varied based on experiment, performance graphs below. (Due to stochastic nature 
 The frame skip was set at 12, which while not a problem while strafing, caused the agent to overshoot and overcorrect, oftentimes repeatedly. This caused suboptimal behavior. This could be rectified by using a smaller frame skip, but was not nessecary.
 
 
-<discount_factor>
+### Discount Factor
+![Discount Factor](https://raw.githubusercontent.com/firstlawrobotics/doom-agent/master/stock/Save/bt/basic_turn.cfg%20Discount%20Factor%20Test_line.png)
 
-<learning_rate>
-
+### Learning Rate
+![Learning Rate](https://raw.githubusercontent.com/firstlawrobotics/doom-agent/master/stock/Save/bt/basic_turn.cfg%20Learning%20Rate%20Test_line.png)
 
 # Defend_the_line.wad - Stock Q-Learning
 
