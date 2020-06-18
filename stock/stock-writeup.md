@@ -108,3 +108,10 @@ Below is a demonstration of basic generalization back to the original problem wi
 Finally, we can also watch the performance of the generalized agent in an environment it has never seen before, Defend the Center.
 
 [![](https://j.gifs.com/p8pwBp.gif)](http://www.youtube.com/watch?v=D5Lgoez-4ok "Defend the Center Generalized")
+
+# Other Writeups:
+
+* [Auto-Aim Training](../autoaim/autoaim-writeup-1.md)
+  * Using an Aimbot to Provide Training Data
+* [Ammo Conservation](../ammo_conservation/ammo-writeup-1.md)
+  * Reward Shaping to Influence Agent to Conserve Ammo
