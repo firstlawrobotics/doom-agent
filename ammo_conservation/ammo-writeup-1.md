@@ -10,4 +10,8 @@ To determine an efficient reward I ran some quick tests modifying the ratio of p
 
 Reusing the most effective hyper-parameters from the stock tests, we ran experiments for each of the ratios. Results are shown below: 
 
+++++++++++++++++++++++++++++++=
+
+This shit failed miserably. 
+
 
